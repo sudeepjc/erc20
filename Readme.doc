@@ -1,0 +1,14 @@
+Commands to be issued to test the ERC20 Token and Faucet
+
+truffle deploy
+>migrate
+> MyERC20.deployed(). then( instance => { instance.balanceOf(accounts[0]).then(console.log) })
+// shows balance as 20000.
+// approve transfer of the required amount and allow Faucet to perform this transfer
+> MyERC20.deployed(). then( instance => { instance.approve( MyERC20Faucet.address, 1000) })
+// let accounts[1] make the transfer
+> MyERC20Faucet.deployed(). then( instance => { instance.withdraw( 1000, {from:accounts[1]}) } )
+// now check the balance from the first command
+// it should show as 19000.
+// Also check the balance of accounts[1]
+// it should be set to 1000
